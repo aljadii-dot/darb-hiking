@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Geeza Pro'}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Geeza Pro'; min-height: 17.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="ar" dir="rtl"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;دَرْب — بوصلة وإحداثيات ومسار&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>* { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body { margin: 0; background: #0f172a; color: #f8fafc; padding: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.app { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>h1 { margin: 0 0 4px; font-size: 1.4rem; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.sub { color: #94a3b8; font-size: 0.9rem; margin: 0; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.compass-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.dial {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 180px; height: 180px; border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 4px solid #38bdf8; display: flex; align-items: center; justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>position: relative; background: #0f172a; transition: transform 0.15s ease-out;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.needle {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 4px; height: 130px; position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(to bottom, #ef4444 50%, #e2e8f0 50%);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.deg { font-size: 1.8rem; font-weight: 700; color: #38bdf8; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.box { background: #0f172a; padding: 12px; border-radius: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.label { color: #94a3b8; font-size: 0.8rem; display: block; margin-bottom: 4px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.val { font-size: 1.05rem; font-weight: 600; direction: ltr; text-align: right; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.controls { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>button {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: none; border-radius: 10px; padding: 10px 14px; font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer; background: #38bdf8; color: #0f172a; flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>button.secondary { background: #334155; color: #f8fafc; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>button.danger { background: #ef4444; color: #fff; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>canvas { width: 100%; height: 180px; background: #0f172a; border-radius: 12px; margin-top: 12px; display: block; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>ul { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>li { background: #0f172a; padding: 10px 12px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>small { color: #94a3b8; display: block; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="app"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h1&gt;دَرْب&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;p class="sub"&gt;بوصلة، إحداثيات فورية، وتسجيل المسار فقط&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card compass-wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="dial" id="dial"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="needle"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="deg" id="headingText"&gt;--°&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="sub" id="dirText"&gt;فعّل مستشعر الاتجاه أو حرّك المحاكاة&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="range" min="0" max="359" value="0" id="simHeading" style="width:100%" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="secondary" id="enableCompassBtn" style="width:100%"&gt;تفعيل بوصلة الهاتف&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="box"&gt;&lt;span class="label"&gt;خط العرض (Lat)&lt;/span&gt;&lt;div class="val" id="lat"&gt;--&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="box"&gt;&lt;span class="label"&gt;خط الطول (Lon)&lt;/span&gt;&lt;div class="val" id="lon"&gt;--&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="box"&gt;&lt;span class="label"&gt;الارتفاع (م)&lt;/span&gt;&lt;div class="val" id="alt"&gt;--&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="box"&gt;&lt;span class="label"&gt;المسافة (م)&lt;/span&gt;&lt;div class="val" id="dist"&gt;0&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="controls"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="startBtn"&gt;بدء التسجيل&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="secondary" id="pauseBtn" disabled&gt;إيقاف مؤقت&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="danger" id="stopBtn" disabled&gt;إنهاء وحفظ&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;canvas id="trackCanvas" width="460" height="180"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;strong&gt;المسارات المحفوظة&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul id="savedList"&gt;&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let watchId = null, recording = false, paused = false, points = [], totalDist = 0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const dial = document.getElementById('dial'), headingText = document.getElementById('headingText'), dirText = document.getElementById('dirText');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const dirs = ['شمال', 'شمال شرق', 'شرق', 'جنوب شرق', 'جنوب', 'جنوب غرب', 'غرب', 'شمال غرب'];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function updateCompass(deg) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const norm = ((deg % 360) + 360) % 360;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>dial.style.transform = `rotate(${-norm}deg)`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>headingText.textContent = `${Math.round(norm)}°`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>dirText.textContent = dirs[Math.round(norm / 45) % 8];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('simHeading').addEventListener('input', e =&gt; updateCompass(+e.target.value));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('enableCompassBtn').addEventListener('click', async () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (typeof DeviceOrientationEvent !== 'undefined' &amp;&amp; typeof DeviceOrientationEvent.requestPermission === 'function') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const res = await DeviceOrientationEvent.requestPermission();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (res !== 'granted') return alert('تم رفض إذن البوصلة');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>window.addEventListener('deviceorientationabsolute', e =&gt; { if (e.alpha != null) updateCompass(360 - e.alpha); }, true);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>window.addEventListener('deviceorientation', e =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (e.webkitCompassHeading != null) updateCompass(e.webkitCompassHeading);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>else if (e.alpha != null) updateCompass(360 - e.alpha);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}, true);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function haversine(a, b) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const R = 6371000, toRad = x =&gt; x * Math.PI / 180;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const dLat = toRad(b.lat - a.lat), dLon = toRad(b.lon - a.lon);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const s = Math.sin(dLat/2)**2 + Math.cos(toRad(a.lat))*Math.cos(toRad(b.lat))*Math.sin(dLon/2)**2;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return 2 * R * Math.atan2(Math.sqrt(s), Math.sqrt(1-s));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const canvas = document.getElementById('trackCanvas'), ctx = canvas.getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function drawTrack() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.clearRect(0, 0, canvas.width, canvas.height);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (points.length &lt; 2) return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lats = points.map(p =&gt; p.lat), lons = points.map(p =&gt; p.lon);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const minLat = Math.min(...lats), maxLat = Math.max(...lats), minLon = Math.min(...lons), maxLon = Math.max(...lons);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const pad = 20, spanLat = (maxLat - minLat) || 0.0001, spanLon = (maxLon - minLon) || 0.0001;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 3; ctx.beginPath();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>points.forEach((p, i) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const x = pad + ((p.lon - minLon) / spanLon) * (canvas.width - pad * 2);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const y = canvas.height - pad - ((p.lat - minLat) / spanLat) * (canvas.height - pad * 2);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ctx.stroke();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function onPos(pos) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const pt = { lat: pos.coords.latitude, lon: pos.coords.longitude, alt: pos.coords.altitude, t: Date.now() };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('lat').textContent = pt.lat.toFixed(6);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('lon').textContent = pt.lon.toFixed(6);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('alt').textContent = pt.alt != null ? pt.alt.toFixed(1) : 'غير متوفر';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (recording &amp;&amp; !paused) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (points.length) totalDist += haversine(points[points.length - 1], pt);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>points.push(pt);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('dist').textContent = Math.round(totalDist);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>drawTrack();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (navigator.geolocation) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>watchId = navigator.geolocation.watchPosition(onPos, () =&gt; {}, { enableHighAccuracy: true, maximumAge: 1000 });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const startBtn = document.getElementById('startBtn'), pauseBtn = document.getElementById('pauseBtn'), stopBtn = document.getElementById('stopBtn');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>startBtn.onclick = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>recording = true; paused = false; points = []; totalDist = 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('dist').textContent = '0'; ctx.clearRect(0, 0, canvas.width, canvas.height);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>startBtn.disabled = true; pauseBtn.disabled = false; stopBtn.disabled = false;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>pauseBtn.onclick = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>paused = !paused;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>pauseBtn.textContent = paused ? 'استئناف' : 'إيقاف مؤقت';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>stopBtn.onclick = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>recording = false; paused = false; pauseBtn.textContent = 'إيقاف مؤقت';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>startBtn.disabled = false; pauseBtn.disabled = true; stopBtn.disabled = true;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!points.length) return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const saved = JSON.parse(localStorage.getItem('darb_tracks') || '[]');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>saved.unshift({ name: `مسار ${new Date().toLocaleString('ar-SA')}`, dist: Math.round(totalDist), count: points.length, points });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>localStorage.setItem('darb_tracks', JSON.stringify(saved));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderSaved();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function exportGPX(track) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const trkpts = track.points.map(p =&gt; `&lt;trkpt lat="${p.lat}" lon="${p.lon}"&gt;${p.alt != null ? `&lt;ele&gt;${p.alt}&lt;/ele&gt;` : ''}&lt;time&gt;${new Date(p.t).toISOString()}&lt;/time&gt;&lt;/trkpt&gt;`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const gpx = `&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;gpx version="1.1" creator="Darb"&gt;&lt;trk&gt;&lt;name&gt;${track.name}&lt;/name&gt;&lt;trkseg&gt;${trkpts}&lt;/trkseg&gt;&lt;/trk&gt;&lt;/gpx&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const a = document.createElement('a');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>a.href = URL.createObjectURL(new Blob([gpx], { type: 'application/gpx+xml' }));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>a.download = `${track.name}.gpx`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>a.click();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderSaved() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const list = document.getElementById('savedList');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const saved = JSON.parse(localStorage.getItem('darb_tracks') || '[]');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>list.innerHTML = saved.length ? '' : '&lt;li class="sub"&gt;لا توجد مسارات محفوظة بعد&lt;/li&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>saved.forEach((t, idx) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const li = document.createElement('li');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>li.innerHTML = `&lt;div&gt;&lt;strong&gt;${t.name}&lt;/strong&gt;&lt;small&gt;المسافة: ${t.dist} م • النقاط: ${t.count}&lt;/small&gt;&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const btn = document.createElement('button');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>btn.className = 'secondary'; btn.style.flex = 'none'; btn.textContent = 'GPX';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>btn.onclick = () =&gt; exportGPX(saved[idx]);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>li.appendChild(btn); list.appendChild(li);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderSaved();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
